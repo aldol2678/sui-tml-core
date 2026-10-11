@@ -1,0 +1,9 @@
+operation drive.save(report: Report, target: Destination) -> Artifact
+effects [storage.write]
+requires [cap storage.write(target)]
+
+task wrong_cap_scope(report: Report, target: Destination) -> Artifact {
+effects [storage.write]
+requires [cap storage.write(report)]
+call drive.save(report, target)
+}

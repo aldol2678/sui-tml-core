@@ -1,0 +1,9 @@
+operation web.search(query: Text) -> Report
+effects [network.read]
+requires [cap network.read(query)]
+
+task missing_effect(query: Text) -> Report {
+effects []
+requires [cap network.read(query)]
+call web.search(query)
+}

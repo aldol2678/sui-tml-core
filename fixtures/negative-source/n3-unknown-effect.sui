@@ -1,0 +1,5 @@
+task unknown_effect() -> Unit {
+effects [quantum.read]
+requires []
+approvals []
+}

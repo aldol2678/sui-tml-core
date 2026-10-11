@@ -1,0 +1,8 @@
+operation util.echo(value: Text) -> Text
+
+task bad_type(count: Int) -> Text {
+effects []
+requires []
+approvals []
+call util.echo(count)
+}

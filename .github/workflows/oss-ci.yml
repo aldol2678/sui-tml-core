@@ -1,0 +1,49 @@
+name: OSS Core CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - name: Install locked dependencies
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Verify core and clean export
+        run: |
+          npm test
+          npm run export:clean
+          cd release/tml-oss-core
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm test
+      - name: Package standalone root commit (no private Git history)
+        run: |
+          node -e 'const fs=require("node:fs"); for (const p of ["release/tml-oss-core/node_modules", "release/tml-oss-core/dist"]) fs.rmSync(p,{recursive:true,force:true});'
+          cd release/tml-oss-core
+          git init --initial-branch=main
+          git config user.name "TML OSS Release"
+          git config user.email "noreply@local"
+          git add --all
+          git commit -m "chore: initialize clean TML core v0.1.0"
+          test "$(git rev-list --all --count)" -eq 1
+          test "$(git rev-list --parents HEAD | wc -w)" -eq 1
+          git bundle create ../sui-tml-core-v0.1.0.bundle --all
+          git bundle verify ../sui-tml-core-v0.1.0.bundle
+          mv .git ../../.oss-export-git
+      - name: Save clean-history-free source bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: sui-tml-core-source
+          path: release/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 7

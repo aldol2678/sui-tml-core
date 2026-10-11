@@ -1,0 +1,11 @@
+operation mail.send(message: Message) -> Receipt
+effects [external.send]
+requires [cap external.send(message)]
+approvals [approve send(message)]
+
+task wrong_approval_scope(message: Message, other: Message) -> Receipt {
+effects [external.send]
+requires [cap external.send(message)]
+approvals [approve send(other)]
+call mail.send(message)
+}

@@ -1,0 +1,205 @@
+{
+  "contract": {
+    "id": "tml-r2-semantic-input-v0.1.0",
+    "status": "public-oss-baseline"
+  },
+  "frozenBeforeImplementation": true,
+  "counts": {
+    "positive": 3,
+    "negativeSource": 7,
+    "negativeAst": 2,
+    "parser": 3,
+    "total": 15
+  },
+  "fixtures": [
+    {
+      "id": "p1-read-only",
+      "kind": "positive",
+      "path": "fixtures/positive/p1-read-only.sui",
+      "expectedDiagnostics": [],
+      "allowAdditionalDiagnostics": false,
+      "semanticCheckerExpected": true
+    },
+    {
+      "id": "p2-storage-write",
+      "kind": "positive",
+      "path": "fixtures/positive/p2-storage-write.sui",
+      "expectedDiagnostics": [],
+      "allowAdditionalDiagnostics": false,
+      "semanticCheckerExpected": true
+    },
+    {
+      "id": "p3-external-send",
+      "kind": "positive",
+      "path": "fixtures/positive/p3-external-send.sui",
+      "expectedDiagnostics": [],
+      "allowAdditionalDiagnostics": false,
+      "semanticCheckerExpected": true
+    },
+    {
+      "id": "n1-type-mismatch",
+      "kind": "negative-source",
+      "path": "fixtures/negative-source/n1-type-mismatch.sui",
+      "expectedDiagnostics": [
+        {
+          "code": "TYPE_MISMATCH",
+          "span": {
+            "startOffset": 129,
+            "endOffset": 134
+          }
+        }
+      ],
+      "allowAdditionalDiagnostics": false,
+      "semanticCheckerExpected": true
+    },
+    {
+      "id": "n2-effect-undeclared",
+      "kind": "negative-source",
+      "path": "fixtures/negative-source/n2-effect-undeclared.sui",
+      "expectedDiagnostics": [
+        {
+          "code": "EFFECT_UNDECLARED",
+          "span": {
+            "startOffset": 199,
+            "endOffset": 209
+          }
+        }
+      ],
+      "allowAdditionalDiagnostics": false,
+      "semanticCheckerExpected": true
+    },
+    {
+      "id": "n3-unknown-effect",
+      "kind": "negative-source",
+      "path": "fixtures/negative-source/n3-unknown-effect.sui",
+      "expectedDiagnostics": [
+        {
+          "code": "UNKNOWN_EFFECT",
+          "span": {
+            "startOffset": 41,
+            "endOffset": 53
+          }
+        }
+      ],
+      "allowAdditionalDiagnostics": false,
+      "semanticCheckerExpected": true
+    },
+    {
+      "id": "n4-capability-requirement-invalid",
+      "kind": "negative-source",
+      "path": "fixtures/negative-source/n4-capability-requirement-invalid.sui",
+      "expectedDiagnostics": [
+        {
+          "code": "CAPABILITY_REQUIREMENT_INVALID",
+          "span": {
+            "startOffset": 241,
+            "endOffset": 251
+          }
+        }
+      ],
+      "allowAdditionalDiagnostics": false,
+      "semanticCheckerExpected": true
+    },
+    {
+      "id": "n5-approval-requirement-invalid",
+      "kind": "negative-source",
+      "path": "fixtures/negative-source/n5-approval-requirement-invalid.sui",
+      "expectedDiagnostics": [
+        {
+          "code": "APPROVAL_REQUIREMENT_INVALID",
+          "span": {
+            "startOffset": 279,
+            "endOffset": 288
+          }
+        }
+      ],
+      "allowAdditionalDiagnostics": false,
+      "semanticCheckerExpected": true
+    },
+    {
+      "id": "n6-capability-scope-mismatch",
+      "kind": "negative-source",
+      "path": "fixtures/negative-source/n6-capability-scope-mismatch.sui",
+      "expectedDiagnostics": [
+        {
+          "code": "CAPABILITY_SCOPE_STRUCTURE_MISMATCH",
+          "span": {
+            "startOffset": 238,
+            "endOffset": 263
+          }
+        }
+      ],
+      "allowAdditionalDiagnostics": false,
+      "semanticCheckerExpected": true
+    },
+    {
+      "id": "n7-approval-scope-mismatch",
+      "kind": "negative-source",
+      "path": "fixtures/negative-source/n7-approval-scope-mismatch.sui",
+      "expectedDiagnostics": [
+        {
+          "code": "APPROVAL_SCOPE_STRUCTURE_MISMATCH",
+          "span": {
+            "startOffset": 292,
+            "endOffset": 311
+          }
+        }
+      ],
+      "allowAdditionalDiagnostics": false,
+      "semanticCheckerExpected": true
+    },
+    {
+      "id": "n8-capability-forgery",
+      "kind": "negative-ast",
+      "path": "fixtures/negative-ast/n8-capability-forgery.json",
+      "expectedDiagnostics": [
+        {
+          "code": "CAPABILITY_FORGERY",
+          "span": {
+            "startOffset": 7,
+            "endOffset": 18
+          }
+        }
+      ],
+      "allowAdditionalDiagnostics": false,
+      "semanticCheckerExpected": true
+    },
+    {
+      "id": "n9-approval-forgery",
+      "kind": "negative-ast",
+      "path": "fixtures/negative-ast/n9-approval-forgery.json",
+      "expectedDiagnostics": [
+        {
+          "code": "APPROVAL_FORGERY",
+          "span": {
+            "startOffset": 11,
+            "endOffset": 23
+          }
+        }
+      ],
+      "allowAdditionalDiagnostics": false,
+      "semanticCheckerExpected": true
+    },
+    {
+      "id": "pb1-minimal-task",
+      "kind": "parser",
+      "path": "fixtures/parser/pb1-minimal-task.sui",
+      "expectedParse": "PASS",
+      "semanticCheckerExpected": true
+    },
+    {
+      "id": "pb2-unclosed-clause",
+      "kind": "parser",
+      "path": "fixtures/parser/pb2-unclosed-clause.sui",
+      "expectedParse": "FAIL",
+      "semanticCheckerExpected": false
+    },
+    {
+      "id": "pb3-unsupported-form",
+      "kind": "parser",
+      "path": "fixtures/parser/pb3-unsupported-form.sui",
+      "expectedParse": "FAIL",
+      "semanticCheckerExpected": false
+    }
+  ]
+}

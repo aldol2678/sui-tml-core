@@ -1,0 +1,9 @@
+operation drive.save(report: Report, target: Destination) -> Artifact
+effects [storage.write]
+requires [cap storage.write(target)]
+
+task missing_cap(report: Report, target: Destination) -> Artifact {
+effects [storage.write]
+requires []
+call drive.save(report, target)
+}

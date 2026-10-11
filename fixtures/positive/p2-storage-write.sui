@@ -1,0 +1,10 @@
+operation drive.save(report: Report, target: Destination) -> Artifact
+effects [storage.write]
+requires [cap storage.write(target)]
+
+task save_report(report: Report, target: Destination) -> Artifact {
+effects [storage.write]
+requires [cap storage.write(target)]
+ensures [exists(result), parent(result) == target]
+call drive.save(report, target)
+}

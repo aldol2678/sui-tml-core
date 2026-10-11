@@ -1,0 +1,26 @@
+{
+  "name": "sui-tml",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Experimental TML typed workflow language core and static checker",
+  "type": "module",
+  "engines": {
+    "node": "22.16.0"
+  },
+  "packageManager": "npm@10.9.2",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "verify:bootstrap": "node scripts/verify-bootstrap.mjs",
+    "test:parser": "npm run build && node scripts/test-parser.mjs",
+    "test:checker": "npm run build && node scripts/test-checker.mjs",
+    "test:qa-regression": "npm run build && node scripts/test-qa-regression.mjs",
+    "test:r2": "npm run verify:bootstrap && npm run test:parser && npm run test:checker && npm run test:qa-regression",
+    "test": "npm run verify:oss && npm run test:r2",
+    "verify:oss": "node scripts/verify-oss.mjs",
+    "export:clean": "node scripts/export-clean.mjs"
+  },
+  "devDependencies": {
+    "typescript": "5.8.3"
+  },
+  "license": "Apache-2.0"
+}

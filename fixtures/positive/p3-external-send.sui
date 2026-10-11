@@ -1,0 +1,11 @@
+operation mail.send(message: Message) -> Receipt
+effects [external.send]
+requires [cap external.send(message)]
+approvals [approve send(message)]
+
+task send_message(message: Message) -> Receipt {
+effects [external.send]
+requires [cap external.send(message)]
+approvals [approve send(message)]
+call mail.send(message)
+}
